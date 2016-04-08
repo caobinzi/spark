@@ -39,7 +39,6 @@ object SqlNetworkWordCount extends App {
 
   val lines = ssc.socketTextStream("localhost", 9998, StorageLevel.MEMORY_AND_DISK_SER)
 
-
   val words: DStream[String] = lines.flatMap{
     x ⇒
       //println("Got --->" + x)
@@ -60,7 +59,6 @@ object SqlNetworkWordCount extends App {
   def process_with_sql(words: DStream[String]) = {
     // Convert RDDs of the words DStream to DataFrame and run SQL query
 
-
     words.foreachRDD((rdd: RDD[String], time: Time) ⇒ {
       // Get the singleton instance of SQLContext
       val sqlContext = SQLContextSingleton.getInstance(rdd.sparkContext)
@@ -69,17 +67,20 @@ object SqlNetworkWordCount extends App {
       // Convert RDD[String] to RDD[case class] to DataFrame
 
       val wordsDataFrame: DataFrame = rdd.map(
-        w ⇒ Record(w, w.length, w.length+1)
+        w ⇒ Record(w, w.length, w.length + 1)
       ).toDF()
 
       // Register as table
       wordsDataFrame.registerTempTable("words")
-      println("Words Data Frame Length = "+wordsDataFrame.count())
+      println("Words Data Frame Length = " + wordsDataFrame.count())
       wordsDataFrame.foreach(println)
 
       // Do word count on table using SQL and print it
+      //val wordCountsDataFrame =
+       // sqlContext.sql("select word, count(*) as total from words where b > 3 group by word")
+
       val wordCountsDataFrame =
-      sqlContext.sql("select word, count(*) as total from words where b > 3 group by word")
+      sqlContext.sql("select word  from words where exists (select * from words where b > 3)")
       println(s"========= $time =========")
       wordCountsDataFrame.show()
     })
@@ -88,7 +89,7 @@ object SqlNetworkWordCount extends App {
 }
 
 /** Case class for converting RDD to DataFrame */
-case class Record(word: String, b:Int, c:Int)
+case class Record(word: String, b: Int, c: Int)
 
 /** Lazily instantiated singleton instance of SQLContext */
 object SQLContextSingleton {
