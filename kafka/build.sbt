@@ -1,4 +1,4 @@
-name := "SparkStreaming"
+name := "KafkaTest"
 
 
 scalaVersion := "2.10.5"
