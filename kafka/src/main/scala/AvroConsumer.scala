@@ -37,8 +37,6 @@ object AvroReceiver extends App {
     val consumer = new KafkaConsumer[String, Array[Byte]](props);
     consumer.subscribe(Collections.singletonList("test"));
 
-    val schema = new Schema.Parser().parse(new File("src/main/resources/test_schema.avsc"));
-    val payload1 = new GenericData.Record(schema);
     while (true) {
       val records = consumer.poll(1000).iterator().toList
       records.foreach {
