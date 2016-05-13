@@ -27,7 +27,7 @@ object AvroProducer extends App {
     import org.apache.kafka.clients.producer.ProducerRecord;
 
     val props = new Properties();
-    props.put("bootstrap.servers", "localhost:9092");
+    props.put("bootstrap.servers", "127.0.0.1:9092");
     props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
     props.put("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer")
 
@@ -38,7 +38,7 @@ object AvroProducer extends App {
     val payload1 = new GenericData.Record(schema);
 
     //Step2 : Put data in that genericrecord object
-    payload1.put("name", "dbevent1");
+    payload1.put("name", "hehe");
     payload1.put("favorite_number", 111);
     payload1.put("favorite_color", "Red");
     System.out.println("Original Message : "+ payload1);

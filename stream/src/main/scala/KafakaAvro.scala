@@ -48,6 +48,7 @@ class AvroDecoder(props: VerifiableProperties = null)
 
   override def fromBytes(bytes: Array[Byte]): String = {
 
+    println(s"Got ${bytes}")
     val reader = new GenericDatumReader[GenericRecord](schema);
     val input = new ByteArrayInputStream(bytes);
     val output = new ByteArrayOutputStream();
@@ -73,7 +74,7 @@ object KafakaAvroApp extends App {
 
   val sparkConf = new SparkConf().setAppName("SqlNetworkWordCount").setMaster("local[4]")
   val ssc = new StreamingContext(sparkConf, Seconds(2))
-  val kafkaParams = Map[String, String]("metadata.broker.list" -> "localhost:9092")
+  val kafkaParams = Map[String, String]("metadata.broker.list" -> "127.0.0.1:9092")
   val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, AvroDecoder](ssc, kafkaParams, Set("test"))
 
   messages.foreachRDD {
