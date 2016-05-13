@@ -9,4 +9,8 @@ libraryDependencies += "org.apache.spark" % "spark-core_2.10" % "1.6.1"
 libraryDependencies += "org.apache.spark" % "spark-streaming_2.10" % "1.6.1"
 libraryDependencies += "org.apache.spark" % "spark-streaming-kafka_2.10" % "1.6.1"
 libraryDependencies += "org.apache.spark" % "spark-sql_2.10" % "1.6.1"
+libraryDependencies += "org.apache.kafka" % "kafka_2.10" % "0.8.2.1"
+
+
+
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
