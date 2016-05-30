@@ -35,14 +35,14 @@ class AvroSerializer(props: VerifiableProperties = null) extends Serializer[Stri
     val writer = new GenericDatumWriter[GenericRecord](schema);
     val decoder = DecoderFactory.get().jsonDecoder(schema, din);
     val encoder = EncoderFactory.get().binaryEncoder(output, null);
-    Try{
-    while (true) {
+//    Try{
+  //  while (true) {
       val datum = reader.read(null, decoder)
       println(s"data = ${datum}")
       println("sssssddd")
       writer.write(datum, encoder);
-    }
-  }
+   // }
+ // }
     encoder.flush();
     println(s"encoding ${output.toByteArray}")
     return output.toByteArray();
@@ -73,7 +73,8 @@ object AvroEncoderApp extends App {
       """
     {
       "name":"hehe",
-      "favorite_number":111,
+      "favorite_number":{"int":111},
+
       "favorite_color":"Red"
     }
     """

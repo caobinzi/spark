@@ -56,12 +56,13 @@ class AvroDecoder(props: VerifiableProperties = null)
     val encoder = EncoderFactory.get().jsonEncoder(schema, output, false);
     val decoder = DecoderFactory.get().binaryDecoder(input, null);
     import scala.util.Try
-    Try {
-      while (true) {
+    //Try {
+     // while (true) {
         val datum = reader.read(null, decoder);
+        println(s"datum is :${datum}")
         writer.write(datum, encoder);
-      }
-    }
+      //}
+    //}
     encoder.flush();
     output.flush();
     return new String(output.toByteArray());
