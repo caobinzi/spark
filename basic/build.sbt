@@ -1,4 +1,4 @@
-name := "RDDApp"
+name := "MyApp"
 version := "0.1.1"
 scalaVersion := "2.11.5"
 
@@ -11,7 +11,7 @@ libraryDependencies ++= Seq (
 
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
 
-mainClass in assembly := Some("RDDApp")
+mainClass in assembly := Some("MyApp")
 test in assembly := {}
 
 (run in Compile ) := 

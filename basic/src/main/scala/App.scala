@@ -4,16 +4,18 @@ import ExecutionContext.Implicits.global
 import scalaz._
 import Scalaz._
 
-object RDDApp {
-  def getDataFrame(
-    spark: SparkSession,
-    json:  String
+object MyApp {
+  def getDataFrameFromJson(
+    spark:    SparkSession,
+    jsonFile: String
   ): DataFrame = {
-    spark.read.json(json)
+    spark.read.json(jsonFile)
   }
-  def getSparkSession(master: Option[String]): SparkSession = {
+  def getSparkSession(
+    appName: String,
+    master:  Option[String]
+  ): SparkSession = {
     val spark = SparkSession.builder
-      .appName("RDD App")
     master.cata(
       some = spark.master,
       none = spark
@@ -21,9 +23,8 @@ object RDDApp {
   }
   def main(args: Array[String]): Unit = {
     val master = args.headOption
-    val json = "people.json"
-    val spark = getSparkSession(master)
-    val dataFrame = getDataFrame(spark, json)
+    val spark = getSparkSession("MyApp", master)
+    val dataFrame = getDataFrameFromJson(spark, "people.json")
     dataFrame.show
   }
 }
