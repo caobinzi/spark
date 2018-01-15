@@ -1,7 +1,5 @@
 name := "RDDApp"
 version := "0.1.1"
-
-
 scalaVersion := "2.11.5"
 
 libraryDependencies ++= Seq (
@@ -12,7 +10,13 @@ libraryDependencies ++= Seq (
   )
 
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
+
 mainClass in assembly := Some("RDDApp")
 test in assembly := {}
-//run in Compile <<= Defaults.runTask(fullClasspath in Compile, mainClass in (Compile, run), runner in (Compile, run))
-(run in Compile ) := Defaults.runTask(fullClasspath in Compile, mainClass in (Compile, run), runner in (Compile, run)).evaluated
+
+(run in Compile ) := 
+   Defaults.runTask(
+     fullClasspath in Compile, 
+     mainClass in (Compile, run), 
+     runner in (Compile, run)
+   ).evaluated

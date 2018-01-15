@@ -11,13 +11,11 @@ import scalaz._
 import Scalaz._
 
 object RDDApp {
-
   def getRdd(sc: SparkContext) = {
     val r = scala.util.Random
     val data = (1 to r.nextInt(20000))
     sc.parallelize(data)
   }
-
   def getSparkContext(master: Option[String]) = {
     val conf =
       master.cata(
@@ -26,9 +24,7 @@ object RDDApp {
       )
     new SparkContext(conf)
   }
-
   def main(args: Array[String]): Unit = {
-
     val master = args.headOption
     val sc = getSparkContext(master)
     val rdd = getRdd(sc)
