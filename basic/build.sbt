@@ -8,6 +8,7 @@ libraryDependencies ++= Seq (
     "org.apache.spark" % "spark-core_2.11" % "2.2.0" % "provided",
     "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"
   )
+libraryDependencies += "com.databricks" %% "spark-avro" % "4.0.0"
 
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.7.1")
 
