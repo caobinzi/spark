@@ -7,6 +7,8 @@ import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import scala.concurrent._
 import ExecutionContext.Implicits.global
+import scalaz._
+import Scalaz._
 case class Person(id: String, name: String)
 object RDDApp {
   def run(sc: SparkContext) = {
@@ -29,8 +31,15 @@ object RDDApp {
 
   }
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf().setAppName("test")
-    val sc   = new SparkContext(conf)
+
+    val master = args.headOption
+
+    val conf =
+      master.cata(
+        some = new SparkConf().setAppName("test").setMaster(_),
+        none = new SparkConf().setAppName("test")
+      )
+    val sc = new SparkContext(conf)
     run(sc)
 
   }
