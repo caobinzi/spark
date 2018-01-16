@@ -3,6 +3,7 @@ import scala.concurrent._
 import ExecutionContext.Implicits.global
 import scalaz._
 import Scalaz._
+case class People(age: BigInt, id: BigInt, name: String)
 
 object MyApp {
   def getDataFrameFromJson(
@@ -25,7 +26,9 @@ object MyApp {
     val master = args.headOption
     val spark = getSparkSession("MyApp", master)
     val dataFrame = getDataFrameFromJson(spark, "people.json")
+    import spark.implicits._
     dataFrame.show
+    dataFrame.as[People].show
     Thread.sleep(100000)
   }
 }
