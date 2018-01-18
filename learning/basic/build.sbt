@@ -5,8 +5,8 @@ scalaVersion := "2.11.5"
 libraryDependencies ++= Seq (
     "org.scalaz" %% "scalaz-core" % "7.2.0",
     "org.scalaz" %% "scalaz-concurrent" % "7.2.0",
-    "org.apache.spark" % "spark-core_2.11" % "2.2.0" % "provided",
-    "org.apache.spark" % "spark-hive_2.11" % "2.2.0" % "provided"
+    "org.apache.spark" % "spark-core_2.11" % "2.2.1" % "provided",
+    "org.apache.spark" % "spark-hive_2.11" % "2.2.1" % "provided"
   )
 libraryDependencies += "com.databricks" %% "spark-avro" % "4.0.0"
 

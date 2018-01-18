@@ -1,8 +1,4 @@
 import org.apache.spark.sql._
-import scala.concurrent._
-import ExecutionContext.Implicits.global
-import scalaz._
-import Scalaz._
 import org.apache.spark.sql.functions._
 class TaskError {
   override def toString = "I will cause an error"
@@ -24,10 +20,10 @@ object MyApp {
     master:  Option[String]
   ): SparkSession = {
     val spark = SparkSession.builder
-    master.cata(
-      some = spark.master,
-      none = spark
-    ).getOrCreate
+    master.map(
+       spark.master
+    ).getOrElse(spark)
+    .getOrCreate
   }
 
   def main(args: Array[String]): Unit = {

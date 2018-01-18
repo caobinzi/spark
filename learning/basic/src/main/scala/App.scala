@@ -25,10 +25,13 @@ object MyApp {
   def main(args: Array[String]): Unit = {
     val master = args.headOption
     val spark = getSparkSession("MyApp", master)
-    val dataFrame = getDataFrameFromJson(spark, "people.json")
     import spark.implicits._
+    val dataFrame = getDataFrameFromJson(spark, "people.json")
     dataFrame.show
-    dataFrame.as[People].show
+    val peopleDS = dataFrame.as[People]
+    peopleDS.filter(p => p.age > 30 && p.age <=32)
+    .select("id")
+    .foreach(p => println(p))
     Thread.sleep(100000)
   }
 }
