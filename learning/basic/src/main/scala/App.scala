@@ -32,6 +32,7 @@ object MyApp {
     peopleDS.filter(p => p.age > 30 && p.age <=32)
     .select("id")
     .foreach(p => println(p))
+
     Thread.sleep(100000)
   }
 }
