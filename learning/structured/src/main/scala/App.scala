@@ -77,7 +77,7 @@ object MyApp {
       .master("local")
       .appName("MyStructStreamingApp")
       .getOrCreate()
-    val query = csvAppendTesting(spark)
+    val query = csvTesting(spark)
 
     query.awaitTermination()
   }
